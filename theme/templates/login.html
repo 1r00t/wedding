@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+
+{% block content %}
+    <section>
+        <h2 class="text-2xl text-center">Login</h2>
+
+        {% if not password_correct %}
+            <form action="/login/" method="POST" class="mt-10 flex max-w-full justify-center">
+                {% csrf_token %}
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Passwort"
+                    autocomplete='new-password'
+                    required
+                    class="border-stone-200 rounded-l-md border-r-0 focus:outline-none focus:ring-0 focus:border-teal-500"
+                >
+                <button
+                    type="submit"
+                    class="px-4 rounded-r-md bg-teal-500 text-teal-50 hover:bg-teal-700 hover:text-white transition-color duration-200"
+                    >
+                    <span>weiter</span>
+                </button>
+            </form>
+        {% else %}
+            <form action="/login/" method="POST" class="mt-10 flex max-w-full justify-center">
+                {% csrf_token %}
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Benutzername"
+                    required
+                    class="border-stone-200 rounded-l-md border-r-0 focus:outline-none focus:ring-0 focus:border-teal-500"
+                >
+                <button
+                    type="submit"
+                    class="px-4 rounded-r-md bg-teal-500 text-teal-50 hover:bg-teal-700 hover:text-white transition-color duration-200"
+                    >
+                    <span>anmelden</span>
+                </button>
+            </form>
+        {% endif %}
+    </section>
+{% endblock content %}

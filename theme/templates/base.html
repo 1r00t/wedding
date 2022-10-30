@@ -1,0 +1,37 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <title>Jule &#38; Nici - Hochzeitsdokumentations</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		{% tailwind_css %}
+	</head>
+
+	<body class="relative bg-stone-50 text-stone-700 font-sans leading-normal tracking-normal h-full">
+		{% if messages %}
+			<ul id="messages" class="absolute text-center w-full">
+				{% for message in messages %}
+					<li class="{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}bg-rose-600/90{% endif %}{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}bg-amber-600/90{% endif %}{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}bg-emerald-600/90{% endif %} opacity-0 transition-opacity duration-200 rounded-md shadow-lg text-white max-w-xs py-4 mx-auto">{{message}}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<div class="max-w-xs mx-auto">
+			<header class="mt-10">
+				<h1 class="text-4xl text-center">Jule &#38; Nici</h1>
+			</header>
+			<main class="mt-20">
+				{% block content %}
+				{% endblock content %}
+			</main>
+		</div>
+	</body>
+	<script>
+		const messages = document.querySelectorAll("#messages > li")
+		messages.forEach((message) => {
+			message.style.opacity = 1
+			setTimeout(() => {message.style.opacity = 0}, 2500)
+		})
+	</script>
+</html>

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section>
+    <h2 class="text-2xl text-center">Galerie</h2>
+
+    <form action="/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="flex space-x-2 justify-end">
+            <label for="files"
+                class="block bg-emerald-500 text-emerald-50 shadow-md hover:bg-emerald-700 hover:shadow-xl transition-all cursor-pointer duration-500 max-w-min rounded-full p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <input type="file" id="files" name="files" multiple class="hidden">
+            </label>
+            <input type="submit" value="upload">
+        </div>
+    </form>
+</section>
+
+<!-- <div id="preview-files"></div>
+<script>
+    // it is not possible to edit files that have been selected in file input
+    // so I cant have a delete button without ajax
+    // removed for now. Previewing hundreds of images in not a good idea I think
+
+    const inputFileEl = document.getElementById('files')
+    const previewFileEl = document.getElementById('preview-files')
+    const previewFiles = []
+    inputFileEl.addEventListener("change", (e) => {
+        const files = e.target.files
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i]
+            if (file.type.startsWith('image')) {
+                let image = document.createElement('img')
+                image.src = URL.createObjectURL(file)
+                previewFiles.push(image)
+            }
+        }
+        previewFiles.forEach((previewFile) => {
+            previewFileEl.appendChild(previewFile)
+        })
+    })
+</script> -->
+
+{% endblock content %}
