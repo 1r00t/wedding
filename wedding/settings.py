@@ -53,8 +53,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_forms",
-    "crispy_tailwind",
     "tailwind",
     "theme",
     "django_browser_reload",
