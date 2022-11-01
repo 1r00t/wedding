@@ -1,50 +1,74 @@
 {% extends 'base.html' %}
+
+{% block modal %}
+
+<div class="absolute flex items-center justify-center inset-0 bg-stone-400/80 z-10">
+    <div class="bg-stone-50 rounded-md shadow-lg max-w-xs w-full">
+        <div class="flex justify-between px-4 py-4 items-center">
+            <h3 class="text-xl">Dateien hochladen</h3>
+            <button
+                class="flex items-center hover:bg-stone-700 hover:text-stone-50 active:shadow-sm hover:shadow-lg rounded-full p-1 transition-all">
+                <svg xmlns=" http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <hr>
+
+        <div class="mt-10 px-4 text-center">
+            <p>Auf den grünen Button klicken und Dateien zum hochladen auswählen</p>
+        </div>
+
+        <div class="flex justify-center my-10 px-4">
+            <form action="/" method="POST">
+                <div class="flex flex-col">
+                    <label for="files" class="flex flex-col items-center">
+                        <input type="file" name="files" id="files" multiple class="hidden">
+                        <div
+                            class="bg-emerald-500 text-emerald-50 shadow-lg hover:shadow-xl cursor-pointer hover:bg-emerald-600 transition-all rounded-full p-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
+                                <polyline points="7 9 12 4 17 9"></polyline>
+                                <line x1="12" y1="4" x2="12" y2="16"></line>
+                            </svg>
+                        </div>
+                    </label>
+                    <span id="result" class="mt-10" hidden></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock modal %}
+
+
 {% block content %}
 
 <section>
     <h2 class="text-2xl text-center">Galerie</h2>
-
-    <form action="/" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="flex space-x-2 justify-end">
-            <label for="files"
-                class="block bg-emerald-500 text-emerald-50 shadow-md hover:bg-emerald-700 hover:shadow-xl transition-all cursor-pointer duration-500 max-w-min rounded-full p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-                <input type="file" id="files" name="files" multiple class="hidden">
-            </label>
-            <input type="submit" value="upload">
-        </div>
-    </form>
 </section>
 
-<!-- <div id="preview-files"></div>
-<script>
-    // it is not possible to edit files that have been selected in file input
-    // so I cant have a delete button without ajax
-    // removed for now. Previewing hundreds of images in not a good idea I think
-
-    const inputFileEl = document.getElementById('files')
-    const previewFileEl = document.getElementById('preview-files')
-    const previewFiles = []
-    inputFileEl.addEventListener("change", (e) => {
-        const files = e.target.files
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i]
-            if (file.type.startsWith('image')) {
-                let image = document.createElement('img')
-                image.src = URL.createObjectURL(file)
-                previewFiles.push(image)
-            }
-        }
-        previewFiles.forEach((previewFile) => {
-            previewFileEl.appendChild(previewFile)
-        })
-    })
-</script> -->
-
 {% endblock content %}
+
+{% block scripts %}
+<script>
+    const inputEl = document.querySelector('#files')
+    const resultEl = document.querySelector('#result')
+
+    inputEl.addEventListener('change', (e) => {
+        if (inputEl.files) {
+            const files = inputEl.files
+            resultEl.hidden = false
+            resultEl.textContent = `${files.length} Datei${files.length > 1 ? 'en' : ''} ausgewählt!`
+        }
+    })
+</script>
+{% endblock scripts %}

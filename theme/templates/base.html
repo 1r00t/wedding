@@ -2,14 +2,15 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-    <title>Jule &#38; Nici - Hochzeitsdokumentations</title>
+		<title>Jule &#38; Nici - Hochzeitsdokumentations</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		{% tailwind_css %}
 	</head>
 
-	<body class="relative bg-stone-50 text-stone-700 font-sans leading-normal tracking-normal h-full">
+	<body class="relative mt-0 pt-0 bg-stone-50 text-stone-700 font-sans h-screen">
+		{% block modal %}{% endblock modal %}
 		{% if messages %}
 			<ul id="messages" class="absolute text-center w-full">
 				{% for message in messages %}
@@ -18,10 +19,10 @@
 			</ul>
 		{% endif %}
 		<div class="max-w-xs mx-auto">
-			<header class="mt-10">
+			<header class="pt-10">
 				<h1 class="text-4xl text-center">Jule &#38; Nici</h1>
 			</header>
-			<main class="mt-20">
+			<main class="mt-10">
 				{% block content %}
 				{% endblock content %}
 			</main>
@@ -34,4 +35,5 @@
 			setTimeout(() => {message.style.opacity = 0}, 2500)
 		})
 	</script>
+	{% block scripts %}{% endblock scripts %}
 </html>
